@@ -5,7 +5,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'WatchLens',
   tagline: 'A Configurable Platform for Online Video Recommendation Experiments',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/favicon.png',
 
   future: {
     v4: true,
@@ -56,10 +56,15 @@ const config: Config = {
       respectPrefersColorScheme: true,
     },
     navbar: {
-      title: 'WatchLens',
+      // Title intentionally omitted — the logo image is a wordmark, so
+      // showing "WatchLens" beside it would duplicate the brand.
+      title: '',
       logo: {
         alt: 'WatchLens',
-        src: 'img/logo.svg',
+        src: 'img/watchlens-logo.png',
+        // Keep the wordmark on a fixed visual height so the navbar
+        // doesn't grow with the asset's intrinsic resolution.
+        height: 32,
       },
       items: [
         {
