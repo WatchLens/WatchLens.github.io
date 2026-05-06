@@ -20,7 +20,7 @@ function HomepageHeader() {
         <div className={styles.buttons}>
           <Link
             className="button button--secondary button--lg"
-            to="/docs/event-schema">
+            to="/docs/intro/what-is-watchlens">
             Get Started →
           </Link>
           <Link

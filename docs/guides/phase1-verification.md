@@ -1,3 +1,8 @@
+---
+sidebar_position: 5
+title: Phase 1 Verification
+---
+
 # Phase 1 verification — surface primitives in the browser
 
 The Phase 1 surfaces emit the standardized event schema automatically.

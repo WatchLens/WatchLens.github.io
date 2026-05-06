@@ -1,3 +1,8 @@
+---
+sidebar_position: 4
+title: Designing Surveys
+---
+
 # Surveys
 
 WatchLens ships a built-in survey system for the three points in a user
@@ -241,7 +246,7 @@ rules.
   fires when the frontend's `sessionStorage` is cleared (tab close, new
   tab, logout). A user who keeps a tab open for days will not trigger
   inter-session prompts — see
-  [`event-schema.md`](./event-schema.md#session-lifecycle) for the
+  [`event-schema`](../reference/event-schema.md#session-lifecycle) for the
   exact session lifecycle.
 - **No response edit.** Users can't change a submitted response; the
   unique indexes block re-submission. Admins can delete a response row

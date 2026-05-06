@@ -1,3 +1,8 @@
+---
+sidebar_position: 3
+title: Authoring a UI
+---
+
 # Adding a UI
 
 WatchLens supports three entry points for authoring a UI. They share
@@ -8,7 +13,7 @@ where the source of truth lives and how it gets compiled.
 |-------------|-----------------|--------------|-------------|
 | **Code preset** | `frontend/src/ui-presets/<key>/{feed,watch}.tsx` (git) | Vite build | A UI you want to ship with the platform; needs backend type literal updates. |
 | **Admin Code editor** | `ui_templates.code_text` (DB) | sucrase, in-browser | Researcher-authored TSX without build; per-template; survives across sessions. |
-| **Admin Visual editor** | `ui_templates.feed_tree` / `watch_tree` (DB JSONB) | `BlockTreeRenderer` walks the tree | Compose 19 blocks visually; eject to TSX when you outgrow the library. See [`editor-block-reference.md`](./editor-block-reference.md). |
+| **Admin Visual editor** | `ui_templates.feed_tree` / `watch_tree` (DB JSONB) | `BlockTreeRenderer` walks the tree | Compose 19 blocks visually; eject to TSX when you outgrow the library. See [`block-reference`](../reference/block-reference.md). |
 
 The first three quarters of this guide cover the **Code preset** flow.
 The last two sections cover the in-browser flows.
@@ -22,7 +27,7 @@ The last two sections cover the in-browser flows.
 > published `ui_templates.id` UUID whose `device` matches. A
 > participant whose viewport doesn't match the group's device sees a
 > forced mismatch notice rather than a scaled-down UI. See
-> [`device-routing.md`](./device-routing.md) for the full data model
+> [`device-routing`](../reference/device-routing.md) for the full data model
 > and editor flow.
 
 ## Architecture in one diagram
@@ -227,7 +232,7 @@ All surfaces live in `@/ui-runtime/surfaces`:
 | `<VideoSurface video={video} position={i} context="related">` | per related card | IMPRESSION, THUMBNAIL_HOVER, VIDEO_CLICK |
 | `<VideoSurface video={video} context="watch">` | once around the player; render-prop child receives `PlayerHandlers` | VIDEO_PLAY/PAUSE/SEEK/ENDED/PROGRESS/WATCHED_1S/5S/BUFFERING, PLAYBACK_RATE_CHANGE, VOLUME_CHANGE, FULLSCREEN_CHANGE, KEYBOARD_SHORTCUT |
 
-The full payload spec is in [`event-schema.md`](./event-schema.md).
+The full payload spec is in [`event-schema`](../reference/event-schema.md).
 
 ## Available bundled UI elements
 
@@ -258,7 +263,7 @@ embeds. Either:
    from `<VideoSurface>` and translates them into the embed's API.
 
 The platform doesn't ship a YouTube adapter today; see
-[`event-schema.md` § Embedded video sources](./event-schema.md#embedded-video-sources-youtube-vimeo-)
+[`event-schema` § Embedded video sources](../reference/event-schema.md#embedded-video-sources-youtube-vimeo-)
 for the fidelity tradeoffs and the recommended pattern.
 
 ### Pager-style watch views
@@ -385,7 +390,7 @@ Grid, SplitColumn, VideoList, VideoPlayer, Thumbnail, ChannelAvatar,
 VideoTitle, VideoChannel, VideoViews, VideoLikes, VideoDuration,
 VideoDescription, VideoTags, VideoActions, CommentList, Tabs, Spacer).
 The full reference, including props and composition recipes, is in
-[`editor-block-reference.md`](./editor-block-reference.md).
+[`block-reference`](../reference/block-reference.md).
 
 The block tree is stored as JSONB on `ui_templates.feed_tree` and
 `watch_tree`. The dispatcher (`ui-presets/custom/`) renders it via

@@ -1,3 +1,8 @@
+---
+sidebar_position: 1
+title: Event Schema
+---
+
 # Event Schema
 
 The platform's central engineering claim is the asymmetry between the

@@ -18,7 +18,16 @@ const config: Config = {
   projectName: 'WatchLens.github.io',
 
   onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: 'warn',
+
+  // .md = plain markdown (no JSX in `{...}` expressions); .mdx = MDX.
+  // Docusaurus v4's default is 'mdx' for both extensions, which makes
+  // raw markdown that contains `{...}` blow up the build.
+  markdown: {
+    format: 'detect',
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
+  },
 
   i18n: {
     defaultLocale: 'en',
@@ -72,9 +81,10 @@ const config: Config = {
         {
           title: 'Docs',
           items: [
-            {label: 'Event Schema', to: '/docs/event-schema'},
-            {label: 'Adding a Recommender', to: '/docs/adding-a-recommender'},
-            {label: 'Adding a UI', to: '/docs/adding-a-ui'},
+            {label: 'What is WatchLens', to: '/docs/intro/what-is-watchlens'},
+            {label: 'Quick Start', to: '/docs/intro/quick-start'},
+            {label: 'Architecture', to: '/docs/concepts/architecture'},
+            {label: 'Event Schema', to: '/docs/reference/event-schema'},
           ],
         },
         {

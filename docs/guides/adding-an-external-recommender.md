@@ -1,3 +1,8 @@
+---
+sidebar_position: 2
+title: Adding an External Service
+---
+
 # Adding an external recommender (HTTP)
 
 External recommenders integrate any HTTP-speaking service as a
@@ -9,7 +14,7 @@ already-deployed model) and for Python services that already live
 somewhere else.
 
 If you can write the policy in Python and want it inside the platform
-process, use [`adding-a-recommender.md`](./adding-a-recommender.md)
+process, use [`adding-a-recommender`](./adding-a-recommender.md)
 instead — that path has direct DB access, lower latency, and no extra
 moving parts.
 
@@ -330,11 +335,11 @@ Once registered:
 
 ## See also
 
-- [`adding-a-recommender.md`](./adding-a-recommender.md) — the
+- [`adding-a-recommender`](./adding-a-recommender.md) — the
   in-process Python plug-in path. Covers the contract, available DB
   tables, event types, and recipes — much of which applies equally
   well when your external service queries our DB directly (e.g. via
   read replicas) instead of receiving the request body.
-- [`event-schema.md`](./event-schema.md) — the standardized
+- [`event-schema`](../reference/event-schema.md) — the standardized
   measurement contract that fires regardless of which recommender
   served the page.

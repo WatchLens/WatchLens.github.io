@@ -1,3 +1,8 @@
+---
+sidebar_position: 3
+title: Device Routing
+---
+
 # Per-device UI routing
 
 WatchLens treats **device** as an experimental treatment knob. Every
@@ -15,7 +20,7 @@ DOM and emits the same events for every participant in the group — is
 the experimental control the architecture exists for.
 
 For block-level reference (props, slots, recipes) see
-[`editor-block-reference.md`](./editor-block-reference.md).
+[`block-reference`](./block-reference.md).
 
 ## Architecture
 
@@ -231,9 +236,9 @@ as a follow-up.
 
 ## See also
 
-- [`adding-a-ui.md`](./adding-a-ui.md) — code-track preset authoring
+- [`authoring-a-ui`](../guides/authoring-a-ui.md) — code-track preset authoring
   + Visual editor overview.
-- [`editor-block-reference.md`](./editor-block-reference.md) —
+- [`block-reference`](./block-reference.md) —
   block library, props, slot semantics, composition recipes.
-- [`event-schema.md`](./event-schema.md) — measurement contract that
+- [`event-schema`](./event-schema.md) — measurement contract that
   is shared across all device variants.

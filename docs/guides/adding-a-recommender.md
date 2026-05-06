@@ -1,3 +1,8 @@
+---
+sidebar_position: 1
+title: Adding a Recommender
+---
+
 # Adding a recommendation policy (Python plug-in)
 
 WatchLens serves recommendations through a **plug-in** interface: every
@@ -10,7 +15,7 @@ group sets in `algorithm_config.feed` / `.watch` and invokes
 This guide covers the **in-process Python track** — the path researchers
 take when they want to write the algorithm in Python and run it inside
 the platform. For non-Python and externally hosted models, see
-[`adding-an-external-recommender.md`](./adding-an-external-recommender.md)
+[`adding-an-external-recommender`](./adding-an-external-recommender.md)
 (the HTTP track).
 
 If you just want to know what the existing built-in policies do, see
@@ -242,7 +247,7 @@ recommenders fall into these groups:
 | **Impressions** | `IMPRESSION` | Denominator for CTR. The card was ≥ 50% visible. |
 | **Session** | `SESSION_START`, `SESSION_END`, `PAGE_LOAD`, `PAGE_EXIT`, `NAVIGATION` | Session timing / dwell-time analysis. |
 
-Full list with payload contracts: [`docs/event-schema.md`](./event-schema.md).
+Full list with payload contracts: [`docs/event-schema.md`](../reference/event-schema.md).
 
 ### Reusing other recommenders' caches
 
@@ -552,7 +557,7 @@ to your new file and edit from there.
 
 - **HTTP / external recommender integration** — for non-Python and
   externally hosted models, see
-  [`adding-an-external-recommender.md`](./adding-an-external-recommender.md).
+  [`adding-an-external-recommender`](./adding-an-external-recommender.md).
 - **Push-style ingestion** — Informfully-style "external service POSTs
   pre-computed lists into the platform". The video domain (especially
   the watch surface) doesn't benefit from push, so this isn't planned.
@@ -561,5 +566,5 @@ to your new file and edit from there.
 - **Frontend customization** — adding a recommender is backend-only
   with this guide. The admin dropdown auto-discovers the new policy.
   UI authoring is covered in
-  [`docs/adding-a-ui.md`](./adding-a-ui.md) and
-  [`docs/editor-block-reference.md`](./editor-block-reference.md).
+  [`docs/adding-a-ui.md`](./authoring-a-ui.md) and
+  [`docs/editor-block-reference.md`](../reference/block-reference.md).

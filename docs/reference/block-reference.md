@@ -1,3 +1,8 @@
+---
+sidebar_position: 2
+title: Block Reference
+---
+
 # Editor block reference
 
 The Visual editor (`/admin/ui-custom/<id>` → Visual mode) composes a UI
@@ -8,7 +13,7 @@ React component that applies the props.
 
 This document is the reference for the block library and the editor UX.
 For the underlying event measurement that fires regardless of how the
-tree was authored, see [`event-schema.md`](./event-schema.md).
+tree was authored, see [`event-schema`](./event-schema.md).
 
 ## Overview
 
