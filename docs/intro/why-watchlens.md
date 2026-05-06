@@ -37,25 +37,6 @@ without rewriting the rest of the stack.
   using policy A on UI X compares cleanly against a study using
   policy B on UI Y because the data shapes are identical.
 
-## Concrete differences from Informfully
-
-The closest comparison is Informfully. Both target online studies
-with real participants and real recommendations. The differences come
-from WatchLens' video-domain focus.
-
-| Concern                  | Informfully                              | WatchLens                                                                                        |
-|--------------------------|------------------------------------------|--------------------------------------------------------------------------------------------------|
-| Recommendation runtime   | External services push ranked lists into the platform DB | First-class **in-process Python** *and* **external HTTP**, both behind the same dispatcher       |
-| UI authoring             | React Native, hard-coded variants        | Bundled presets *and* in-browser TSX track *and* visual block-tree editor                        |
-| Event schema             | Per-article like-survey, generic events  | 33 video-aware events with policy and position attached to every row                             |
-| Survey timings           | Onboarding survey and per-article like   | Pre-study (forced) plus post-study plus inter-session reflection on the prior session            |
-| Domain                   | News articles                            | Video. Playback events, watch ratio, view counts, embedded YouTube/TikTok-style presets          |
-
-If you are running a **news article** study, Informfully is probably
-better. If you are running a **video** study where one axis (policy,
-UI, or measurement) needs to be varied while the others stay fixed,
-WatchLens is the closer fit.
-
 ## When WatchLens is the wrong choice
 
 - You only need offline benchmarking. Use RecBole directly.
