@@ -21,6 +21,7 @@ const sidebars: SidebarsConfig = {
       collapsed: false,
       items: [
         'intro/what-is-watchlens',
+        'intro/system-requirements',
         'intro/quick-start',
         'intro/why-watchlens',
       ],
