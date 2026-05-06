@@ -8,6 +8,13 @@
   text-align: center;
   position: relative;
   overflow: hidden;
+  /*
+   * Gradient runs from bottom-left (#064682, deep navy) to top-right
+   * (#52d49b, mint). 75deg in CSS terms means the vector is mostly
+   * horizontal with a slight upward tilt, matching the request that
+   * straight-up be 90deg.
+   */
+  background: linear-gradient(75deg, #064682 0%, #52d49b 100%);
 }
 
 @media screen and (max-width: 996px) {
