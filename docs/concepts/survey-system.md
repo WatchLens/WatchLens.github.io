@@ -77,24 +77,6 @@ secondary mapping table. Each answer's text is **snapshotted** into
 the response, so editing the survey later does not retroactively
 change old answers' wording.
 
-## Compared to other platforms
-
-| Aspect                           | WatchLens                                   | Informfully                                 |
-|----------------------------------|---------------------------------------------|---------------------------------------------|
-| Timing kinds                     | 3 (pre, post, inter-session)                | 1 onboarding plus per-article like          |
-| Trigger enforcement              | Server-side dispatcher with priority        | Client flag (`hasAnsweredSurvey`)           |
-| Forced gating                    | Pre-study only                              | Onboarding always                           |
-| About-session tracking           | ⭕ (inter-session's `about_session_id`)      | ❌                                          |
-| Conditional questions            | ❌ (deliberate scope cut)                    | ⭕ (selectionsFrom and withAtLeast)         |
-| Per-question quantisation        | ⭕ (`answers[i].value`)                      | ⭕                                          |
-| Question text snapshot           | ⭕                                          | ⭕                                          |
-| Per-article like-survey          | ❌                                          | ⭕                                          |
-
-The per-article like-survey is Informfully's strength.
-Inter-session reflection is WatchLens's. Both are domain-shaped.
-News articles ask "did you like this one". Video studies ask "what
-was your session like".
-
 ## Where to go next
 
 - [**Designing Surveys**](../guides/designing-surveys). Admin guide
