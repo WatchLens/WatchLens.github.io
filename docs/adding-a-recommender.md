@@ -282,7 +282,7 @@ the backend image.
 
 ---
 
-## Per-group configuration (`algorithm_params`)
+## Per-group configuration (`algorithm_params`) {#per-group-configuration}
 
 A single recommender can be parameterised per user group via the
 group's `config` JSONB. The dispatcher pulls the relevant slice and
