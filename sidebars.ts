@@ -41,6 +41,8 @@ const sidebars: SidebarsConfig = {
         'guides/adding-a-recommender',
         'guides/adding-an-external-recommender',
         'guides/authoring-a-ui',
+        'guides/admin-visual-editor',
+        'guides/admin-code-editor',
         'guides/designing-surveys',
         'guides/phase1-verification',
       ],

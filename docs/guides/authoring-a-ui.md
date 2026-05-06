@@ -3,32 +3,34 @@ sidebar_position: 3
 title: Authoring a UI
 ---
 
-# Adding a UI
+# Authoring a UI
 
 WatchLens supports three entry points for authoring a UI. They share
-the same data hooks and surface primitives — the choice is about
-where the source of truth lives and how it gets compiled.
+the same data hooks and surface primitives. The choice is about where
+the source of truth lives and how it gets compiled.
 
 | Entry point | Source lives in | Compile path | When to use |
 |-------------|-----------------|--------------|-------------|
-| **Code preset** | `frontend/src/ui-presets/<key>/{feed,watch}.tsx` (git) | Vite build | A UI you want to ship with the platform; needs backend type literal updates. |
-| **Admin Code editor** | `ui_templates.code_text` (DB) | sucrase, in-browser | Researcher-authored TSX without build; per-template; survives across sessions. |
-| **Admin Visual editor** | `ui_templates.feed_tree` / `watch_tree` (DB JSONB) | `BlockTreeRenderer` walks the tree | Compose 19 blocks visually; eject to TSX when you outgrow the library. See [`block-reference`](../reference/block-reference.md). |
+| **Code preset** | `frontend/src/ui-presets/<key>/{feed,watch}.tsx` (git) | Vite build | A UI you want to ship with the platform. Needs the platform built and deployed. |
+| **Admin Code editor** | `ui_templates.code_text` (DB) | sucrase, in-browser | Researcher-authored TSX without a build step. Per-template. See [Admin Code Editor](./admin-code-editor). |
+| **Admin Visual editor** | `ui_templates.feed_tree` and `watch_tree` (DB JSONB) | `BlockTreeRenderer` walks the tree | Compose 19 blocks visually. Eject to TSX when you outgrow the library. See [Admin Visual Editor](./admin-visual-editor). |
 
-The first three quarters of this guide cover the **Code preset** flow.
-The last two sections cover the in-browser flows.
+This guide covers the **Code preset** flow (the first row of the
+table). The two browser-based tracks have their own dedicated pages,
+linked above.
 
 > **Per-device routing.** Every user group is bound to one device
 > class (`'desktop' | 'tablet' | 'mobile'`), and `ui_config` is flat
 > (`{feed: <key>, watch: <key>}`). Built-in presets ship per-device
-> variants — `youtube-{desktop,tablet,mobile}`, `tiktok-{desktop,tablet,
-> mobile}`, plus the device-agnostic `'none'`. Each value must be a
-> built-in whose device list includes the group's device, or a
-> published `ui_templates.id` UUID whose `device` matches. A
-> participant whose viewport doesn't match the group's device sees a
-> forced mismatch notice rather than a scaled-down UI. See
-> [`device-routing`](../reference/device-routing.md) for the full data model
-> and editor flow.
+> variants like `youtube-{desktop,tablet,mobile}` and
+> `tiktok-{desktop,tablet,mobile}`, plus the device-agnostic
+> `'none'`. Each value must be a built-in whose device list includes
+> the group's device, or a published `ui_templates.id` UUID whose
+> `device` matches. A participant whose viewport does not match the
+> group's device sees a forced mismatch notice rather than a
+> scaled-down UI. See
+> [device-routing](../reference/device-routing.md) for the full data
+> model and editor flow.
 
 ## Architecture in one diagram
 
@@ -328,114 +330,18 @@ dispatcher hands the UUID to `<TemplateFeed>` /
 `custom/` preset — it was retired when `ui_config` collapsed to flat
 keys (alembic 019).
 
-## Admin Code editor (in-browser TSX)
+## Browser-based authoring tracks
 
-Admins can author a per-template UI without committing it to git. The
-editor compiles TSX in-browser via sucrase: paste / write a default-
-exported component, switch the editor's preview pane, see it run live.
+The Admin Code editor and Admin Visual editor each have their own
+dedicated page so they appear directly in the sidebar.
 
-```tsx
-// pasted into the admin Code editor
-import { useFeed } from '@watchlens/data'
-import { FeedSurface, VideoSurface } from '@watchlens/surfaces'
+- [**Admin Code Editor**](./admin-code-editor). Paste TSX into the
+  admin browser. The platform compiles it with sucrase at runtime,
+  with no build step. Best when the layout cannot be expressed as a
+  tree of bundled blocks.
+- [**Admin Visual Editor**](./admin-visual-editor). Compose a UI out
+  of 19 blocks (Page, Stack, Grid, SplitColumn, Tabs, VideoList,
+  Thumbnail, Title, Channel, Views, Likes, Description, Tags,
+  Actions, Comments, and so on). Live preview against bundled mock
+  videos. Eject to the Code editor when you need an escape hatch.
 
-export default function MyCustomFeed(): JSX.Element {
-  const { videos, isLoading } = useFeed({ limit: 12 })
-  if (isLoading) return <div>Loading…</div>
-  return (
-    <FeedSurface videos={videos}>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, padding: 16 }}>
-        {videos.map((v, i) => (
-          <VideoSurface key={v.id} video={v} position={i} context="feed">
-            <article>
-              <div style={{ aspectRatio: '16/9', background: '#eee', borderRadius: 8 }} />
-              <h3>{v.title}</h3>
-            </article>
-          </VideoSurface>
-        ))}
-      </div>
-    </FeedSurface>
-  )
-}
-```
-
-Resolved imports (compile-time rewritten by `frontend/src/ui-runtime/compile.ts`):
-
-| Import | Resolves to |
-|--------|-------------|
-| `'@watchlens/data'` | `window.__watchlens__.data` (the data hooks) |
-| `'@watchlens/surfaces'` | `window.__watchlens__.surfaces` |
-| `'@watchlens/blocks'` | `window.__watchlens__.blocks` (block runtime + `BlockTreeRenderer`) |
-| `'@watchlens/runtime'` | `window.__watchlens__` (everything) |
-| `'react'` | `window.__watchlens__.React` |
-
-Anything else throws at compile time so the missing import is visible
-in the editor before it can break a participant session.
-
-The same code editor renders both feed and watch dispatchers — the
-admin's TSX is responsible for branching on URL or page context if it
-needs page-specific behaviour. The Phase 5 visual-eject path (below)
-generates this branch automatically.
-
-To assign a code-editor template to a group, set
-`ui_config.template_id` on the group to the template's UUID. The
-dispatcher (`ui-presets/custom/feed.tsx` / `watch.tsx`) reads that id,
-fetches the template, and routes to `<CompiledUI>` when
-`template_type = 'code'`.
-
-## Admin Visual editor (block tree)
-
-The Visual editor composes a UI from 19 blocks (Page, Stack/Group,
-Grid, SplitColumn, VideoList, VideoPlayer, Thumbnail, ChannelAvatar,
-VideoTitle, VideoChannel, VideoViews, VideoLikes, VideoDuration,
-VideoDescription, VideoTags, VideoActions, CommentList, Tabs, Spacer).
-The full reference, including props and composition recipes, is in
-[`block-reference`](../reference/block-reference.md).
-
-The block tree is stored as JSONB on `ui_templates.feed_tree` and
-`watch_tree`. The dispatcher (`ui-presets/custom/`) renders it via
-`<BlockTreeRenderer>` when `template_type = 'tree'`.
-
-### Eject to Code
-
-Any visual template can be ejected into the Code editor at any time.
-The editor's right panel shows the live-generated TSX (read-only) for
-the current trees:
-
-```tsx
-import { BlockTreeRenderer } from '@watchlens/blocks'
-import type { BlockNode } from '@watchlens/blocks'
-
-const FEED_TREE: BlockNode = { /* full feed tree literal */ }
-const WATCH_TREE: BlockNode = { /* full watch tree literal */ }
-
-export default function CustomTemplate(): JSX.Element {
-  const pathname = typeof window !== 'undefined' ? window.location.pathname : '/'
-  const isWatch = pathname.startsWith('/watch')
-  return (
-    <BlockTreeRenderer
-      page={isWatch ? 'watch' : 'feed'}
-      tree={isWatch ? WATCH_TREE : FEED_TREE}
-    />
-  )
-}
-```
-
-Three buttons in the panel:
-
-- **Copy** — clipboard.
-- **Export** — downloads as `<slug>.tsx`. Drop into
-  `frontend/src/ui-presets/<key>/feed.tsx` or paste into another admin
-  Code editor.
-- **Eject →** — confirms, then copies the generated TSX into the
-  editor's Code mode and switches modes. Save to commit
-  `template_type = 'code'`; the original block trees stay in the DB
-  (un-NULLed) so manual SQL `UPDATE template_type = 'tree'` reverts.
-
-The generated form is a thin wrapper around `BlockTreeRenderer` rather
-than a per-block JSX expansion. That keeps the eject path simple and
-the runtime semantics identical, at the cost of human-friendliness if
-the TSX is meant to be hand-edited extensively. Replace the
-`<BlockTreeRenderer>` call with raw JSX (using the same data hooks +
-surfaces shown earlier in this doc) when the wrapper is no longer
-expressive enough.
