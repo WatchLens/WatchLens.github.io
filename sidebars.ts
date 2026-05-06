@@ -43,6 +43,7 @@ const sidebars: SidebarsConfig = {
       collapsed: false,
       items: [
         'admin/overview',
+        'admin/running-an-experiment',
         'admin/stats-tab',
         'admin/recbole-tab',
       ],
