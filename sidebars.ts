@@ -39,6 +39,16 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
+      label: 'Admin Console',
+      collapsed: false,
+      items: [
+        'admin/overview',
+        'admin/stats-tab',
+        'admin/recbole-tab',
+      ],
+    },
+    {
+      type: 'category',
       label: 'Recommenders',
       collapsed: false,
       items: [
