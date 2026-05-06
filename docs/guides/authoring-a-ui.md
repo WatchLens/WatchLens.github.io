@@ -323,12 +323,12 @@ device variant):
   the YouTube tablet/mobile wrappers).
 
 Built-in dispatch lives in `pages/user/Feed.tsx` /
-`pages/user/VideoWatch.tsx`: `isBuiltinFeedKey(key)` →
-`FEED_PRESETS[key].Component` for any of the keys above; otherwise the
+`pages/user/VideoWatch.tsx`. `isBuiltinFeedKey(key)` resolves to
+`FEED_PRESETS[key].Component` for any of the keys above. Otherwise the
 dispatcher hands the UUID to `<TemplateFeed>` /
 `<TemplateWatch>` for admin-authored templates. There is no separate
-`custom/` preset — it was retired when `ui_config` collapsed to flat
-keys (alembic 019).
+`custom/` preset. Built-in keys and admin-authored template UUIDs are
+equal citizens of the same flat `{feed, watch}` map.
 
 ## Browser-based authoring tracks
 
