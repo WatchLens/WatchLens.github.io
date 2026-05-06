@@ -3,17 +3,21 @@ import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
 /**
  * Manually authored sidebar.
  *
- * Four categories follow the introduction → concepts → guides → reference
- * arc that newcomers (and reviewers) typically read in. Within each
- * category, file order is set by `sidebar_position` in the document's
- * frontmatter; we list ids explicitly here so adding a new doc doesn't
- * silently change the order.
+ * Categories follow the platform's domains rather than the
+ * Diátaxis intro / concepts / guides / reference split. Each domain
+ * collects the concept page, the how-to guide, and the reference for
+ * that area into one sidebar group, so a reader who wants to know
+ * "how do recommenders work" can stay in one place from concept to
+ * walk-through to API.
+ *
+ * Doc ids are listed explicitly so adding a new file does not silently
+ * change the order.
  */
 const sidebars: SidebarsConfig = {
   tutorialSidebar: [
     {
       type: 'category',
-      label: 'Introduction',
+      label: 'Get Started',
       collapsed: false,
       items: [
         'intro/what-is-watchlens',
@@ -23,38 +27,52 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: 'Concepts',
+      label: 'Architecture',
       collapsed: false,
       items: [
         'concepts/architecture',
         'concepts/configurable-execution',
-        'concepts/standardized-measurement',
         'concepts/device-routing',
-        'concepts/survey-system',
+        'reference/device-routing',
       ],
     },
     {
       type: 'category',
-      label: 'Guides',
+      label: 'Recommenders',
       collapsed: false,
       items: [
         'guides/adding-a-recommender',
         'guides/adding-an-external-recommender',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'UI Authoring',
+      collapsed: false,
+      items: [
         'guides/authoring-a-ui',
         'guides/admin-visual-editor',
         'guides/admin-code-editor',
-        'guides/designing-surveys',
+        'reference/block-reference',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Events',
+      collapsed: false,
+      items: [
+        'concepts/standardized-measurement',
+        'reference/event-schema',
         'guides/phase1-verification',
       ],
     },
     {
       type: 'category',
-      label: 'Reference',
+      label: 'Surveys',
       collapsed: false,
       items: [
-        'reference/event-schema',
-        'reference/block-reference',
-        'reference/device-routing',
+        'concepts/survey-system',
+        'guides/designing-surveys',
       ],
     },
   ],
