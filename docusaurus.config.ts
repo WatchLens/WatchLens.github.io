@@ -52,6 +52,8 @@ const config: Config = {
 
   themeConfig: {
     image: 'img/docusaurus-social-card.jpg',
+    // Block search-engine indexing while the paper is still under review.
+    metadata: [{ name: 'robots', content: 'noindex, nofollow' }],
     colorMode: {
       respectPrefersColorScheme: true,
     },
