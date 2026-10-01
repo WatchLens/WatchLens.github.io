@@ -30,8 +30,21 @@
 }
 
 .affiliation {
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.25rem;
   font-size: 1.05rem;
+}
+
+.note {
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.citation {
+  padding: 2rem 0 4rem;
+}
+
+.citation :global(.container) {
+  max-width: 960px;
 }
 
 @media screen and (max-width: 996px) {
@@ -74,4 +87,15 @@
 .linkButton svg {
   width: 1em;
   height: 1em;
+}
+
+.linkButtonPrimary {
+  background: #fff;
+  color: #1c1e21;
+  font-weight: 700;
+}
+
+.linkButtonPrimary:hover {
+  background: #ebedf0;
+  color: #1c1e21;
 }

@@ -5,11 +5,25 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import Heading from '@theme/Heading';
+import CodeBlock from '@theme/CodeBlock';
 
 import styles from './index.module.css';
 
-const AUTHORS = ['Deogyong Kim', 'Dongha Lee'];
+const AUTHORS: {name: string; corresponding?: boolean}[] = [
+  {name: 'Deogyong Kim'},
+  {name: 'Dongha Lee', corresponding: true},
+];
 const AFFILIATION = 'Department of Artificial Intelligence, Yonsei University';
+
+const BIBTEX = `@misc{kim2026watchlens,
+  title         = {WatchLens: A Configurable Platform for Online Video Recommendation Experiments},
+  author        = {Deogyong Kim and Dongha Lee},
+  year          = {2026},
+  eprint        = {2608.04807},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.IR},
+  url           = {https://arxiv.org/abs/2608.04807}
+}`;
 
 function PaperIcon() {
   return (
@@ -48,11 +62,13 @@ function DocsIcon() {
   );
 }
 
-const LINKS: {label: string; href: string; icon: ReactNode}[] = [
+// `primary` marks the entry point to the user guide, rendered as a
+// light pill with an arrow so it stands out from the paper links.
+const LINKS: {label: string; href: string; icon: ReactNode; primary?: boolean}[] = [
   {label: 'Paper', href: 'https://arxiv.org/pdf/2608.04807', icon: <PaperIcon />},
   {label: 'arXiv', href: 'https://arxiv.org/abs/2608.04807', icon: <ArxivIcon />},
   {label: 'Code', href: 'https://github.com/WatchLens/WatchLens', icon: <GitHubIcon />},
-  {label: 'Docs', href: '/docs/intro/what-is-watchlens', icon: <DocsIcon />},
+  {label: 'Docs', href: '/docs/intro/what-is-watchlens', icon: <DocsIcon />, primary: true},
 ];
 
 function HomepageHeader() {
@@ -63,13 +79,28 @@ function HomepageHeader() {
         <Heading as="h1" className={styles.title}>
           {siteConfig.title}: {siteConfig.tagline}
         </Heading>
-        <p className={styles.authors}>{AUTHORS.join(', ')}</p>
+        <p className={styles.authors}>
+          {AUTHORS.map(({name, corresponding}, i) => (
+            <span key={name}>
+              {i > 0 && ', '}
+              {name}
+              {corresponding && <sup>*</sup>}
+            </span>
+          ))}
+        </p>
         <p className={styles.affiliation}>{AFFILIATION}</p>
+        <p className={styles.note}>
+          <sup>*</sup>Corresponding author
+        </p>
         <div className={styles.buttons}>
-          {LINKS.map(({label, href, icon}) => (
-            <Link key={label} className={styles.linkButton} to={href}>
+          {LINKS.map(({label, href, icon, primary}) => (
+            <Link
+              key={label}
+              className={clsx(styles.linkButton, primary && styles.linkButtonPrimary)}
+              to={href}>
               {icon}
               {label}
+              {primary && <span aria-hidden="true">→</span>}
             </Link>
           ))}
         </div>
@@ -87,6 +118,12 @@ export default function Home(): ReactNode {
       <HomepageHeader />
       <main>
         <HomepageFeatures />
+        <section className={styles.citation}>
+          <div className="container">
+            <Heading as="h2">BibTeX</Heading>
+            <CodeBlock>{BIBTEX}</CodeBlock>
+          </div>
+        </section>
       </main>
     </Layout>
   );
