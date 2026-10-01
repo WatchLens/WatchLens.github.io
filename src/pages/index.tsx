@@ -15,14 +15,15 @@ const AUTHORS: {name: string; corresponding?: boolean}[] = [
 ];
 const AFFILIATION = 'Department of Artificial Intelligence, Yonsei University';
 
-const BIBTEX = `@misc{kim2026watchlens,
-  title         = {WatchLens: A Configurable Platform for Online Video Recommendation Experiments},
-  author        = {Deogyong Kim and Dongha Lee},
-  year          = {2026},
-  eprint        = {2608.04807},
-  archivePrefix = {arXiv},
-  primaryClass  = {cs.IR},
-  url           = {https://arxiv.org/abs/2608.04807}
+const BIBTEX = `@inproceedings{kim2026watchlens,
+  title     = {WatchLens: A Configurable Platform for Online Video Recommendation Experiments},
+  author    = {Kim, Deogyong and Lee, Dongha},
+  booktitle = {Proceedings of the 20th ACM Conference on Recommender Systems},
+  series    = {RecSys '26},
+  pages     = {927--932},
+  year      = {2026},
+  publisher = {Association for Computing Machinery},
+  doi       = {10.1145/3773078.3831858}
 }`;
 
 function PaperIcon() {
@@ -65,7 +66,7 @@ function DocsIcon() {
 // `primary` marks the entry point to the user guide, rendered as a
 // light pill with an arrow so it stands out from the paper links.
 const LINKS: {label: string; href: string; icon: ReactNode; primary?: boolean}[] = [
-  {label: 'Paper', href: 'https://arxiv.org/pdf/2608.04807', icon: <PaperIcon />},
+  {label: 'Paper', href: 'https://dl.acm.org/doi/10.1145/3773078.3831858', icon: <PaperIcon />},
   {label: 'arXiv', href: 'https://arxiv.org/abs/2608.04807', icon: <ArxivIcon />},
   {label: 'Code', href: 'https://github.com/WatchLens/WatchLens', icon: <GitHubIcon />},
   {label: 'Docs', href: '/docs/intro/what-is-watchlens', icon: <DocsIcon />, primary: true},
