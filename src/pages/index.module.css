@@ -17,14 +17,61 @@
   background: linear-gradient(75deg, #064682 0%, #52d49b 100%);
 }
 
+.title {
+  max-width: 960px;
+  margin: 0 auto 1rem;
+  font-size: 2.5rem;
+  line-height: 1.2;
+}
+
+.authors {
+  margin-bottom: 0.25rem;
+  font-size: 1.25rem;
+}
+
+.affiliation {
+  margin-bottom: 1.5rem;
+  font-size: 1.05rem;
+}
+
 @media screen and (max-width: 996px) {
   .heroBanner {
     padding: 2rem;
+  }
+
+  .title {
+    font-size: 1.75rem;
   }
 }
 
 .buttons {
   display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   align-items: center;
   justify-content: center;
+}
+
+/* Dark pill links, styled after academic project pages (Paper / arXiv / Code). */
+.linkButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 1rem;
+  border-radius: 9999px;
+  background: #363636;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.linkButton:hover {
+  background: #1f1f1f;
+  color: #fff;
+  text-decoration: none;
+}
+
+.linkButton svg {
+  width: 1em;
+  height: 1em;
 }
